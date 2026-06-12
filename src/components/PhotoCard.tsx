@@ -17,6 +17,7 @@ interface PhotoCardProps {
     initialX: string;
     initialY: string;
     mobileX?: string;
+    mobileY?: string;
     hideOnMobile?: boolean;
     zIndex: number;
   };
