@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Reorder } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import PhotoCard from "@/components/PhotoCard";
 import PhotoLightbox from "@/components/PhotoLightbox";
 
@@ -143,7 +143,7 @@ export default function Home() {
 
   return (
     <>
-    <main className="min-h-[150vh] w-full bg-[#E6DACA] flex flex-col">
+    <main className="min-h-[119vh] md:min-h-[150vh] w-full bg-[#E6DACA] flex flex-col">
       <AnimatePresence>
         {showIntro && (
           <motion.div
@@ -197,7 +197,7 @@ export default function Home() {
           }}
         >
           {/* Card Container with symmetrical top and bottom padding */}
-          <div className="relative w-full min-h-[calc(100vh-200px)] pt-[25vh] pb-[25vh] flex items-center justify-center pointer-events-none box-border">
+          <div className="relative w-full h-full min-h-[calc(100vh-200px)] pt-[25vh] pb-[25vh] flex items-center justify-center pointer-events-none box-border">
             <div className="relative w-full h-0 pointer-events-auto">
               {items.map((photo, index) => (
                 <PhotoCard
@@ -209,16 +209,16 @@ export default function Home() {
               ))}
             </div>
           </div>
+          
+          <PhotoLightbox
+            src={zoomedPhoto?.src || ""}
+            alt={zoomedPhoto?.alt || ""}
+            isOpen={!!zoomedPhoto}
+            onClose={() => setZoomedPhoto(null)}
+          />
         </div>
       </div>
     </main>
-
-    <PhotoLightbox
-      src={zoomedPhoto?.src || ""}
-      alt={zoomedPhoto?.alt || ""}
-      isOpen={!!zoomedPhoto}
-      onClose={() => setZoomedPhoto(null)}
-    />
     </>
   );
 }

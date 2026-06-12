@@ -96,7 +96,7 @@ export default function PhotoLightbox({ src, alt, isOpen, onClose }: PhotoLightb
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
+          className="absolute inset-0 z-[100] flex items-center justify-center bg-black/80"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -131,9 +131,7 @@ export default function PhotoLightbox({ src, alt, isOpen, onClose }: PhotoLightb
                 transform: `scale(${scale}) translate(${translate.x / scale}px, ${translate.y / scale}px)`,
                 transition: isDragging.current ? "none" : "transform 0.2s ease-out",
               }}
-              sizes="100vw"
-              quality={100}
-              priority
+              unoptimized
               draggable={false}
             />
           </div>
