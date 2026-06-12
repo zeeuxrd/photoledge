@@ -131,7 +131,9 @@ export default function PhotoLightbox({ src, alt, isOpen, onClose }: PhotoLightb
                 transform: `scale(${scale}) translate(${translate.x / scale}px, ${translate.y / scale}px)`,
                 transition: isDragging.current ? "none" : "transform 0.2s ease-out",
               }}
-              sizes="90vw"
+              sizes="100vw"
+              quality={100}
+              priority
               draggable={false}
             />
           </div>

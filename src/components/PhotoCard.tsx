@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { ZoomIn } from "lucide-react";
 
 interface PhotoCardProps {
   index: number;
@@ -27,7 +28,6 @@ interface PhotoCardProps {
 export default function PhotoCard({ index, photo, onZoom }: PhotoCardProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
-  const lastTapRef = useRef(0);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -69,18 +69,7 @@ export default function PhotoCard({ index, photo, onZoom }: PhotoCardProps) {
         animate={{ rotateY: shouldFlip ? 180 : 0 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 260, damping: 20 }}
         onMouseLeave={() => setIsFlipped(false)}
-        onClick={(e) => {
-          const now = Date.now();
-          if (now - lastTapRef.current < 300) {
-            // Double tap/click — open lightbox
-            e.stopPropagation();
-            onZoom?.(photo.src, photo.caption);
-          } else {
-            // Single tap — flip
-            setIsFlipped(!isFlipped);
-          }
-          lastTapRef.current = now;
-        }}
+        onClick={() => setIsFlipped(!isFlipped)}
       >
         {/* FRONT FACE */}
         <div 
@@ -93,10 +82,20 @@ export default function PhotoCard({ index, photo, onZoom }: PhotoCardProps) {
               alt={photo.caption}
               fill
               className="object-cover"
-              sizes="(max-width: 1536px) 185px, 206px"
+              unoptimized
               draggable={false}
             />
           </div>
+          {/* Zoom button */}
+          <button
+            className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white rounded-full p-1.5 shadow-md pointer-events-auto transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              onZoom?.(photo.src, photo.caption);
+            }}
+          >
+            <ZoomIn className="w-4 h-4 text-black/70" />
+          </button>
           <div className="w-full mt-2 pt-2 pb-3 px-4 flex items-center justify-center text-center pointer-events-none">
             <span className="font-handwriting text-[16px] font-medium text-black/90">
               {photo.caption}

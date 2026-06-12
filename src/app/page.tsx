@@ -187,7 +187,7 @@ export default function Home() {
       </div>
 
       {/* Brown Board Section */}
-      <div className="w-full px-[30px] pb-[30px] flex-1 flex flex-col">
+      <div className="w-full px-[16px] md:px-[30px] pb-[16px] md:pb-[30px] flex-1 flex flex-col">
         <div
           className="flex-1 w-full relative overflow-hidden rounded-[30px] shadow-2xl"
           style={{
